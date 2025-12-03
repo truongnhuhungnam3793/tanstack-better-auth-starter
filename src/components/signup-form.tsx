@@ -22,16 +22,18 @@ import { toast } from 'sonner'
 import * as z from 'zod'
 
 const formSchema = z.object({
+  name: z.string().min(3, 'Name must be at least 3 characters'),
   email: z.email('Invalid email'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
-export function LoginForm({
+export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
   const form = useForm({
     defaultValues: {
+      name: '',
       email: '',
       password: '',
     },
@@ -39,15 +41,16 @@ export function LoginForm({
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      await authClient.signIn.email(
+      await authClient.signUp.email(
         {
+          name: value.name,
           email: value.email,
           password: value.password,
           callbackURL: '/dashboard',
         },
         {
           onSuccess: () => {
-            toast.success('Login successful')
+            toast.success('Signup successful')
           },
           onError: (ctx) => {
             toast.error(ctx.error.message)
@@ -61,8 +64,8 @@ export function LoginForm({
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>Login with your Google account</CardDescription>
+          <CardTitle className="text-xl">Welcome to our app</CardTitle>
+          <CardDescription>Sign up with your Google account</CardDescription>
         </CardHeader>
         <CardContent>
           <form
@@ -80,12 +83,41 @@ export function LoginForm({
                       fill="currentColor"
                     />
                   </svg>
-                  Login with Google
+                  Sign up with Google
                 </Button>
               </Field>
               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                 Or continue with
               </FieldSeparator>
+              <form.Field
+                name="name"
+                children={(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <FieldLabel htmlFor={field.name}>
+                        {field.name.charAt(0).toUpperCase() +
+                          field.name.slice(1)}
+                      </FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        type="text"
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        aria-invalid={isInvalid}
+                        placeholder="Enter your name"
+                        autoComplete="off"
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  )
+                }}
+              />
               <form.Field
                 name="email"
                 children={(field) => {
@@ -146,7 +178,7 @@ export function LoginForm({
               />
               <Field>
                 <Button type="submit" className="cursor-pointer">
-                  Login
+                  Sign up
                 </Button>
                 <FieldDescription className="text-center">
                   Don&apos;t have an account? <a href="#">Sign up</a>
