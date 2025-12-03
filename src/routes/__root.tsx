@@ -2,6 +2,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
+import Header from '@/components/Header'
 import { Toaster } from 'sonner'
 import appCss from '../styles.css?url'
 
@@ -37,6 +38,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="dark">
+        <Header />
         <main className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
           {children}
         </main>
