@@ -180,9 +180,6 @@ export function SignupForm({
                 <Button type="submit" className="cursor-pointer">
                   Sign up
                 </Button>
-                <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
-                </FieldDescription>
               </Field>
             </FieldGroup>
           </form>

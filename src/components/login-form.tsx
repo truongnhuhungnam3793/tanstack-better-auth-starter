@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input'
 import { authClient } from '@/lib/auth-client'
 import { cn } from '@/lib/utils'
 import { useForm } from '@tanstack/react-form'
+import { Link } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import * as z from 'zod'
 
@@ -149,7 +150,7 @@ export function LoginForm({
                   Login
                 </Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
+                  Don&apos;t have an account? <Link to="/signup">Sign up</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>
