@@ -36,7 +36,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="dark">
-        {children}
+        <main className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+          {children}
+        </main>
         <TanStackDevtools
           config={{
             position: 'bottom-left',
