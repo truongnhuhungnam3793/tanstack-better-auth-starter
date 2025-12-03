@@ -26,14 +26,20 @@ const Header = () => {
 
         <nav className="flex gap-4">
           {session ? (
-            <Button onClick={handleLogout}>Logout</Button>
+            <Button onClick={handleLogout} className="cursor-pointer">
+              Logout
+            </Button>
           ) : (
             <>
               <Button asChild>
-                <Link to="/login">Login</Link>
+                <Link to="/login" className="cursor-pointer">
+                  Login
+                </Link>
               </Button>
               <Button asChild>
-                <Link to="/signup">Sign up</Link>
+                <Link to="/signup" className="cursor-pointer">
+                  Sign up
+                </Link>
               </Button>
             </>
           )}
